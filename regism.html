@@ -1,0 +1,169 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <title>REGISTRAZIONE - MEDICO</title>
+  <meta name="description" content="website description" />
+  <meta name="keywords" content="website keywords, website keywords" />
+  <meta http-equiv="content-type" content="text/html; charset=windows-1252" />
+  <link rel="stylesheet" type="text/css" href="style/style.css" />
+</head>
+
+<body>
+  <div id="main">
+    <div id="header">
+      <div id="logo">
+        <div id="logo_text">
+          <!-- class="logo_colour", allows you to change the colour of the text -->
+          
+          <h1><img src="style/parkinson_logo_small.png"/><a href="index.html">APP <span class="logo_colour">PARKINSON</span></a></h1>
+          <h2>MONITORA E TIENI IN ALLENAMENTO LA TUA VOCE</h2>
+        </div>
+      </div>
+      <div id="menubar">
+        <ul id="menu">
+          <!-- put class="selected" in the li tag for the selected page - to highlight which page you're on -->
+          <li><a href="index.html">Home</a></li>
+          <li class="selected"><a>Registrazione - Medico</a></li>
+          <li><a href="statistiche.html">Statistiche</a></li>
+          <li><a href="chi_siamo.html">Chi Siamo?</a></li>
+        </ul>
+      </div>
+    </div>
+    <div id="content_header"></div>
+    <div id="site_content">
+      <div id="sidebar_container">
+        <div class="sidebar">
+          <div class="sidebar_top"></div>
+          <div class="sidebar_item">
+            <h3>Useful Links</h3>
+            <ul>
+              <li><a href="https://it.wikipedia.org/wiki/Malattia_di_Parkinson">Wiki - Malattia di Parkinson</a></li>
+              <li><a href="http://www.polito.it">Politecnico di Torino</a></li>
+              <li><a href="https://didattica.polito.it/laurea_magistrale/ict_for_smart_societies/en/ict_for_smart_societies">ICT for Smart Societies</a></li>
+            </ul>
+          </div>
+          <div class="sidebar_base"></div>
+        </div>
+        <div class="sidebar">
+          <div class="sidebar_top"></div>
+          <div class="sidebar_item">
+            <h3>Search</h3>
+            <form method="post" action="#" id="search_form">
+              <p>
+                <input class="search" type="text" name="search_field" value="Enter keywords....." />
+                <input name="search" type="image" style="border: 0; margin: 0 0 -9px 5px;" src="style/search.png" alt="Search" title="Search" />
+              </p>
+            </form>
+          </div>
+          <div class="sidebar_base"></div>
+        </div>
+      </div>
+      <div id="content">
+        <!-- insert the page content here -->
+        <h1>REGISTRAZIONE - MEDICO</h1>
+        <h3>Registrati per monitorare l'andamento dei tuoi pazienti</h3>
+        <h3>Compila i seguenti spazi</h3>
+        <h3>Completa il codice medico che fornirai ai tuoi pazienti cosi': Esempio Dott. Mario Rossi codice "marros"</h3>
+        <h2>REGISTRAZIONE</h2>
+        <form action="#" method="post">
+          <div class="form_settings">
+            <p><span>Nome</span><input type="text" name="nome" id="nome"  /></p>
+            <p><span>Cognome</span><input type="text" name="cognome" id="cognome"  /></p>
+            <p><span>Ospedale</span><input type="text" name="ospedale" id="ospedale"  /></p>
+            <p><span>Codice Medico (nom.cog) </span><input type="text" name="codicemedico" id="codicemedico"  /></p>
+            <!-- <p><span>Nome Utente</span><input type="text" name="nomeutente" id="nomeutente" /></p> -->
+            <p><span>Password</span><input type="text" name="psw" id="psw"  /></p>
+            <!-- <p><span>Textarea example</span><textarea rows="8" cols="50" name="name"></textarea></p>
+            <p><span>Checkbox example</span><input class="checkbox" type="checkbox" name="name" value="" /></p>
+            <p><span>Dropdown list example</span><select id="id" name="name"><option value="1">Example 1</option><option value="2">Example 2</option></select></p> -->
+            <p style="padding-top: 15px"><span>&nbsp;</span><input class="submit" type="submit" name="name" value="REGISTRATI"  onclick="InserisciMedico()"/></p>
+          </div>
+        </form>
+        <p>
+        <p>Sei un paziente? Torna alla pagina <a href="registrazione.html">registrazione</a> e accedi alla sezione REGISTRAZIONE - PAZIENTE</p>
+      </div>
+    </div>
+    <div id="content_footer"></div>
+    <div id="footer">
+      <p><a href="index.html">Home</a> | <a href="login.html">Login</a> |  <a href="registrazione.html">Registrazione</a> | <a href="statistiche.html">Statistiche</a> | <a href="chi_siamo.html">Chi Siamo?</a></p>
+    </div>
+    <p>&nbsp;</p>
+  </div>
+  <script src="https://www.gstatic.com/firebasejs/3.9.0/firebase.js"></script>
+  
+
+  <script type="text/javascript">
+  // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyA-KseOU5aymQcFQ-kZBpzKtlamH7aID2A",
+      authDomain: "parkinsonapp-7b987.firebaseapp.com",
+      databaseURL: "https://parkinsonapp-7b987.firebaseio.com",
+      projectId: "parkinsonapp-7b987",
+      storageBucket: "parkinsonapp-7b987.appspot.com",
+      messagingSenderId: "656741739209"
+    };
+    firebase.initializeApp(config);
+  </script>
+  
+  <script type="text/javascript">  
+  // Get a reference to the database service
+    var database = firebase.database();
+    function InserisciMedico() {
+      var nome = document.getElementById('nome').value;
+      var cognome = document.getElementById('cognome').value;
+      var ospedale = document.getElementById('ospedale').value;
+      var codicemedico = document.getElementById('codicemedico').value;
+      //var nomeutente = document.getElementById('nomeutente').value;
+      var psw = document.getElementById('psw').value;
+
+      var medico = {
+        Nome: nome,
+        Cognome: cognome,
+        Ospedale: ospedale,
+        //CodMedico: codicemedico,
+        //User:nomeutente
+        Passw: psw
+      }
+
+      //var KEY = database.ref().child('MEDICI').push().key;
+      //var KEYM = document.getElementById('codicemedico').value;
+      var KEY = codicemedico;
+      var updates = {};
+      updates['/Medici/' + KEY] = medico;
+      //updates['/user-posts/' + uid + '/' + newPostKey] = postData;
+
+      return firebase.database().ref().update(updates);
+      /*database.ref().set({
+      name: nome,
+      //email: email,
+      //profile_picture : imageUrl
+      });*/
+
+      /*database.ref('Utente_Medico/').set({
+      Nome: nome,
+      Cognome: cognome,
+      Ospedale: ospedale,
+      Codice_Medico: codicemedico
+      Password: psw,
+      });*/
+    }
+    /*function InserisciMedico() {
+      var nome = document.getElementById('nome').value;
+      var cognome = document.getElementById('cognome').value;
+      var ospedale = document.getElementById('ospedale').value;
+      var codicemedico = document.getElementById('codicemedico').value;
+      var nomeutente = document.getElementById('nomeutente').value;
+      var psw = document.getElementById('psw').value;
+
+      firebase.database().ref().child("users").child("alovelace").set({
+        var name: nome
+        // Cognome: cognome,
+        // Ospedale: ospedale,
+        // CodiceMedico: codicemedico
+      });
+    }*/
+  </script>
+</body>
+
+</html>
